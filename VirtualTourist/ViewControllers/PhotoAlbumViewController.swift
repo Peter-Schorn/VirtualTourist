@@ -19,9 +19,30 @@ class PhotoAlbumViewController: UICollectionViewController {
         super.viewDidLoad()
      }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        print("view will disappear")
+        saveContext()
+    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("PhotoAlbumViewController: prepare for segue")
+
+    func displayNoImagesLabel() {
+        DispatchQueue.main.async {
+            
+            print("displayNoImagesLabel")
+            let label = UILabel()
+            label.frame = CGRect(
+                x: 0, y: 0,
+                width: self.view.frame.width - 50,
+                height: 100
+            )
+            label.center = self.view.center
+            label.textAlignment = .center
+            label.text = "No Images Found"
+            label.font = .boldSystemFont(ofSize: 40)
+            label.adjustsFontSizeToFitWidth = true
+            self.view.addSubview(label)
+            
+        }
     }
 
     
@@ -29,17 +50,29 @@ class PhotoAlbumViewController: UICollectionViewController {
         
         // if photos exist in the persistent store for the pin, use them.
         if let coreDataPhotos = pin!.photos, coreDataPhotos.count != 0 {
-            DispatchQueue.main.async {
-                self.loadedPhotos = coreDataPhotos.compactMap { photo in
-                    guard let photoData = photo as? Data else {
-                        return nil
+            print("found photos in coredata")
+            
+                loadedPhotos = []
+                for photo in coreDataPhotos {
+
+                    guard let photo = photo as? Photo,
+                            let imageData = photo.imageData,
+                            let uiImage = UIImage(data: imageData)
+                    else {
+                        print("couldn't get image from CoreData")
+                        continue
                     }
-                    return UIImage(data: photoData)
                     
+                    DispatchQueue.main.async {
+                        self.loadedPhotos.append(uiImage)
+                        self.collectionView.reloadData()
+                    }
                 }
-            }
+                
         }
+        // else, retrieve photos from flickr.
         else {
+            print("retrivePhotoDataFromFlickr")
             retrivePhotoDataFromFlickr()
         }
     }
@@ -52,7 +85,12 @@ class PhotoAlbumViewController: UICollectionViewController {
         ) { result in
             do {
                 let photos = try result.get()
-                self.loadPhotos(photos)
+                if photos.isEmpty {
+                    self.displayNoImagesLabel()
+                }
+                else {
+                    self.loadPhotos(photos)
+                }
             } catch {
                 print("error retrivePhotoData:\n\(error)")
             }
@@ -70,9 +108,7 @@ class PhotoAlbumViewController: UICollectionViewController {
                     coreDataPhoto.imageData = photo.pngData()
                     DispatchQueue.main.async {
                         self.loadedPhotos.append(photo)
-                        print("appended to loadedPhotos")
                         self.collectionView.reloadData()
-                        
                     }
                     
                 } catch {
@@ -106,7 +142,7 @@ extension PhotoAlbumViewController {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        print("numberOfItemsInSection:", loadedPhotos.count)
+        // print("numberOfItemsInSection:", loadedPhotos.count)
         return loadedPhotos.count
     }
     
@@ -119,15 +155,38 @@ extension PhotoAlbumViewController {
             withReuseIdentifier: Self.cellReuseIdentifier, for: indexPath
         ) as! PhotoAlbumCell
         
-        print("getting photo for cell", indexPath.row)
-        print("number of loaded photos:", loadedPhotos.count)
+        // print("getting photo for cell", indexPath.row)
         cell.imageView.image = loadedPhotos[indexPath.row]
-        
-        print("image is nil:", cell.imageView.image == nil)
         
         return cell
         
     }
     
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        
+        
+
+    }
+    
+
+}
+
+
+extension PhotoAlbumViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        
+        // print("configure size")
+        let length = view.frame.width / 3 - 20
+        return CGSize(width: length, height: length)
+
+    }
 
 }

@@ -14,7 +14,6 @@ struct FlickrPhoto: Codable {
     let isfamily: Int?
     
     var imageURL: URL {
-        
         return URL(string:
             "https://farm\(farm).staticflickr.com/" +
             "\(server)/\(id)_\(secret).jpg"

@@ -6,7 +6,7 @@ import CoreData
 class MapViewController:
     UIViewController,
     UIGestureRecognizerDelegate
-{
+{ 
     
     @IBOutlet weak var mapView: MKMapView!
     
