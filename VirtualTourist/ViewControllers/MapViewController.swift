@@ -158,7 +158,7 @@ extension MapViewController: MKMapViewDelegate {
         ) as! PhotoAlbumViewController
         
         controller.pin = selectedPin
-        controller.retrivePhotoData()
+        controller.setupPhotos()
         
         self.show(controller, sender: self)
         

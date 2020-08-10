@@ -9,8 +9,12 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 @objc(Photo)
 public class Photo: NSManagedObject {
 
+    // lazy var image = self.imageData.map { UIImage(data: $0) } ?? nil
+    
+    
 }

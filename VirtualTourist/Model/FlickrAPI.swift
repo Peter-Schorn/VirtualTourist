@@ -22,7 +22,7 @@ func getFlickrPhotos(
         .init(name: "nojsoncallback", value: "1")
     ]
 
-    debugPrint("url:", endpoint.url!)
+    debugPrint("getFlickrPhotos url:", endpoint.url!)
     
     let task = URLSession.shared.dataTask(with: endpoint.url!) {
         data, urlResponse, error in
@@ -33,14 +33,13 @@ func getFlickrPhotos(
             return
         }
         do {
-            let stringData = String(data: data, encoding: .utf8)!
-            print("\n\n" + stringData + "\n")
-            
+            // let stringData = String(data: data, encoding: .utf8)!
+            // print("\n\n" + stringData + "\n")
             
             let photos = try JSONDecoder().decode(
                 FlickrPhotosArray.self, from: data
             )
-            print("retrieved \(photos.photos.count) photos")
+            print("getFlickrPhotos: retrieved \(photos.photos.count) photos")
             completion(.success(photos.photos))
             
         } catch {

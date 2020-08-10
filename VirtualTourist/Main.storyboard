@@ -53,7 +53,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PhotoCell" reuseIdentifier="PhotoAlbumCell" id="vzH-e5-2EU" customClass="PhotoCell" customModule="VirtualTourist" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PhotoCell" reuseIdentifier="PhotoAlbumCell" id="vzH-e5-2EU" customClass="PhotoAlbumCell" customModule="VirtualTourist" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ke1-Is-S3v">
@@ -71,6 +71,9 @@
                                         <constraint firstAttribute="trailing" secondItem="ydN-zF-6yn" secondAttribute="trailing" id="fjT-Rg-wsW"/>
                                     </constraints>
                                 </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="imageView" destination="ydN-zF-6yn" id="ntc-TB-fdU"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

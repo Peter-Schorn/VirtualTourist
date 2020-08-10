@@ -1,8 +1,9 @@
 import Foundation
 import UIKit
 
-class PhotoCell: UICollectionViewCell {
+class PhotoAlbumCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    
     
 }
