@@ -22,7 +22,7 @@
 		47E58EBE24E0CA010041FC84 /* MKCoordinateRegion+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E58EB724E0CA010041FC84 /* MKCoordinateRegion+Codable.swift */; };
 		47E58EBF24E0CA010041FC84 /* ProjectUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E58EB924E0CA010041FC84 /* ProjectUtilities.swift */; };
 		47E58EC124E0CA130041FC84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E58EC024E0CA130041FC84 /* Main.storyboard */; };
-		47E58EC424E0CA2F0041FC84 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47E58EC224E0CA2E0041FC84 /* VirtualTourist.xcdatamodeld */; };
+		47E58ECA24E0CC860041FC84 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47E58EC824E0CC860041FC84 /* VirtualTourist.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,7 @@
 		47E58EB724E0CA010041FC84 /* MKCoordinateRegion+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Codable.swift"; sourceTree = "<group>"; };
 		47E58EB924E0CA010041FC84 /* ProjectUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectUtilities.swift; sourceTree = "<group>"; };
 		47E58EC024E0CA130041FC84 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		47E58EC324E0CA2E0041FC84 /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
+		47E58EC924E0CC860041FC84 /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 				47E58E9C24E0C9840041FC84 /* Assets.xcassets */,
 				47E58E9E24E0C9840041FC84 /* LaunchScreen.storyboard */,
 				47E58EA124E0C9840041FC84 /* Info.plist */,
-				47E58EC224E0CA2E0041FC84 /* VirtualTourist.xcdatamodeld */,
+				47E58EC824E0CC860041FC84 /* VirtualTourist.xcdatamodeld */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -209,7 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47E58EAF24E0C9EC0041FC84 /* PhotoCell.swift in Sources */,
-				47E58EC424E0CA2F0041FC84 /* VirtualTourist.xcdatamodeld in Sources */,
+				47E58ECA24E0CC860041FC84 /* VirtualTourist.xcdatamodeld in Sources */,
 				47E58EB024E0C9EC0041FC84 /* NavigationController.swift in Sources */,
 				47E58EBE24E0CA010041FC84 /* MKCoordinateRegion+Codable.swift in Sources */,
 				47E58EBA24E0CA010041FC84 /* FlickrJSON.swift in Sources */,
@@ -412,14 +412,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		47E58EC224E0CA2E0041FC84 /* VirtualTourist.xcdatamodeld */ = {
+		47E58EC824E0CC860041FC84 /* VirtualTourist.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				47E58EC324E0CA2E0041FC84 /* VirtualTourist.xcdatamodel */,
+				47E58EC924E0CC860041FC84 /* VirtualTourist.xcdatamodel */,
 			);
-			currentVersion = 47E58EC324E0CA2E0041FC84 /* VirtualTourist.xcdatamodel */;
-			name = VirtualTourist.xcdatamodeld;
-			path = ../../VirtualTouristOLD/VirtualTourist/VirtualTourist.xcdatamodeld;
+			currentVersion = 47E58EC924E0CC860041FC84 /* VirtualTourist.xcdatamodel */;
+			path = VirtualTourist.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
