@@ -14,7 +14,11 @@ import UIKit
 @objc(Photo)
 public class Photo: NSManagedObject {
 
-    // lazy var image = self.imageData.map { UIImage(data: $0) } ?? nil
     
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.creationDate = Date()
+        self.id = UUID()
+    }
     
 }

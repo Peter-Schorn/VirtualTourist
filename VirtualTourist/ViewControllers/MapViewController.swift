@@ -6,7 +6,7 @@ import CoreData
 class MapViewController:
     UIViewController,
     UIGestureRecognizerDelegate
-{ 
+{
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -87,9 +87,8 @@ class MapViewController:
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = pin.coordinate
                 mapView.addAnnotation(annotation)
-                // print("added pin")
-                
             }
+            print("added \(pins.count) pins from core data")
             
         } catch {
             print("couldn't fetch pins from store")
@@ -98,26 +97,26 @@ class MapViewController:
         
     }
 
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    // MARK: Add pin to map
+    @objc func handleLongPress(
+        gestureRecognizer: UILongPressGestureRecognizer
+    ) {
+        
+        guard gestureRecognizer.state == .ended else { return }
+        
         let pressLocation = gestureRecognizer.location(in: mapView)
         let pressCoordinate = mapView.convert(
             pressLocation, toCoordinateFrom: mapView
         )
 
-        // MARK: Create pin
         let annotation = MKPointAnnotation()
         annotation.coordinate = pressCoordinate
-        addPinToMap(annotation)
         
-    }
-    
-    // MARK: Add Pin to Map
-    func addPinToMap(_ newPin: MKPointAnnotation) {
-        
-        mapView.addAnnotation(newPin)
+        mapView.addAnnotation(annotation)
         
         let pin = Pin(context: managedObjectContext)
-        pin.coordinate = newPin.coordinate
+        pin.coordinate = annotation.coordinate
+        mapPins.append(pin)
         saveContext()
         
     }
@@ -148,9 +147,16 @@ extension MapViewController: MKMapViewDelegate {
         didSelect view: MKAnnotationView
     ) {
         
-        let coordinate = view.annotation!.coordinate
-        let selectedPin = self.mapPins.first { pin in
-            pin.coordinate == coordinate
+        print("mapView didSelect view")
+        
+        let currentCoordinate = view.annotation!.coordinate
+
+        guard let selectedPin = self.mapPins.first(where: { pin in
+            pin.coordinate == currentCoordinate
+        })
+        else {
+            print("mapView didSelect view: could not get pin for coordinate")
+            return
         }
         
         let controller = self.storyboard!.instantiateViewController(
@@ -160,6 +166,7 @@ extension MapViewController: MKMapViewDelegate {
         controller.pin = selectedPin
         controller.setupPhotos()
         
+        print("mapView showing photo album controller")
         self.show(controller, sender: self)
         
     }

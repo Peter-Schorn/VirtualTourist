@@ -1,7 +1,12 @@
 import Foundation
 import UIKit
 
-struct FlickrPhoto: Codable {
+struct FlickrPhoto: Codable, Equatable {
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.imageURL == rhs.imageURL
+    }
+    
     
     let id: String
     let owner: String?
@@ -37,7 +42,6 @@ struct FlickrPhoto: Codable {
             
             completion(.success(image))
         }
-        
         task.resume()
         return task
         
@@ -46,9 +50,10 @@ struct FlickrPhoto: Codable {
 }
 
 
-struct FlickrPhotosArray: Decodable {
+struct FlickrPhotosData: Decodable {
     
     let photos: [FlickrPhoto]
+    let totalPages: Int
     
     init(from decoder: Decoder) throws {
         let topLevelContainer = try decoder.container(
@@ -63,6 +68,11 @@ struct FlickrPhotosArray: Decodable {
             [FlickrPhoto].self, forKey: .photo
         )
         
+        let putativeTotalPages = try photosDataContainer.decode(
+            Int.self, forKey: .totalPages
+        )
+        self.totalPages = min(putativeTotalPages, 100)
+        
     }
     
     enum TopLevelKeys: String, CodingKey {
@@ -70,7 +80,11 @@ struct FlickrPhotosArray: Decodable {
     }
     
     enum PhotosKeys: String, CodingKey {
-        case page, pages, perpage, total, photo
+        case page
+        case totalPages = "pages"
+        case perpage
+        case totalPhotos = "total"
+        case photo
     }
     
 }

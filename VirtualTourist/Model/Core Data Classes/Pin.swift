@@ -17,8 +17,6 @@ public class Pin: NSManagedObject {
     }
     
     
-    
-    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         self.creationDate = Date()

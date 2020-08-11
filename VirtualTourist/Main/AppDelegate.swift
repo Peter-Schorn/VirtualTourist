@@ -92,6 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if context.hasChanges {
             do {
                 try context.save()
+                print("saved context")
             } catch {
                 // Replace this implementation with code
                 // to handle the error appropriately.
@@ -100,8 +101,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // You should not use this function in a shipping application,
                 // although it may be useful during development.
                 let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                print(
+                    "could not save persistent container " +
+                    "view context:\n\(nserror)"
+                )
             }
+        }
+        else {
+            print("context does not have changes")
         }
     }
 

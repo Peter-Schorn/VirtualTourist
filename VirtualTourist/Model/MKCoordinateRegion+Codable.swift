@@ -40,12 +40,17 @@ extension MKCoordinateRegion: Codable {
 
 
 
-extension CLLocationCoordinate2D: Codable, Equatable {
+extension CLLocationCoordinate2D: Codable, Equatable, Hashable {
     
     // instance properties:
     // var latitude: CLLocationDegrees
     // var longitude: CLLocationDegrees
 
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.latitude)
+        hasher.combine(self.longitude)
+    }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         if lhs.latitude != rhs.latitude { return false }
@@ -131,4 +136,5 @@ extension MKCoordinateSpan: Codable {
     enum CodingKeys: CodingKey {
         case latitudeDelta, longitudeDelta
     }
+    
 }
